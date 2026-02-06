@@ -2,16 +2,36 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  timeout: 30000,
 });
 
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message =
-      error.response?.data?.detail || 'Something went wrong. Please try again.';
-    return Promise.reject(message);
+    if (error.code === 'ECONNABORTED') {
+      return Promise.reject('Request timed out. Please try again.');
+    }
+
+    if (error.code === 'ERR_NETWORK' || !error.response) {
+      return Promise.reject('Unable to connect to server. Please try again later.');
+    }
+
+    const status = error.response.status;
+
+    if (status >= 400 && status < 500) {
+      const detail = error.response.data?.detail || 'Invalid request. Please check your input.';
+      return Promise.reject(detail);
+    }
+
+    if (status >= 500) {
+      return Promise.reject('Something went wrong on our end. Please try again.');
+    }
+
+    return Promise.reject('Something went wrong. Please try again.');
   }
 );
+
+export const checkHealth = () => api.get('/health');
 
 export const fetchEmployees = async () => {
   const { data } = await api.get('/api/employees');
