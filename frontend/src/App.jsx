@@ -3,11 +3,8 @@ import { Toaster } from 'react-hot-toast';
 import AppLayout from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Employees from './pages/Employees';
+import Attendance from './pages/Attendance';
 import NotFound from './pages/NotFound';
-
-function Attendance() {
-  return <div>Attendance</div>;
-}
 
 export default function App() {
   return (
