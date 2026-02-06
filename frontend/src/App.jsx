@@ -2,11 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import AppLayout from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
+import Employees from './pages/Employees';
 import NotFound from './pages/NotFound';
-
-function Employees() {
-  return <div>Employees</div>;
-}
 
 function Attendance() {
   return <div>Attendance</div>;
