@@ -73,9 +73,10 @@ export default function EmployeeTable({ employees, onRefresh }) {
                   <button
                     onClick={() => setDeleteTarget(emp)}
                     className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 transition-colors"
+                    aria-label={`Delete ${emp.full_name}`}
                   >
                     <Trash2 className="h-3.5 w-3.5" />
-                    Delete
+                    <span className="hidden sm:inline">Delete</span>
                   </button>
                 </td>
               </tr>

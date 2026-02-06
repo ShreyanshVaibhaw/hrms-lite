@@ -3,45 +3,9 @@ import { Plus, Users } from 'lucide-react';
 import { fetchEmployees } from '../services/api';
 import ErrorAlert from '../components/ui/ErrorAlert';
 import EmptyState from '../components/ui/EmptyState';
+import Skeleton from '../components/ui/Skeleton';
 import AddEmployeeModal from '../components/employees/AddEmployeeModal';
 import EmployeeTable from '../components/employees/EmployeeTable';
-
-function SkeletonRow() {
-  return (
-    <tr className="border-b border-gray-100 animate-pulse">
-      <td className="px-4 py-3"><div className="h-4 w-20 rounded bg-gray-200" /></td>
-      <td className="px-4 py-3"><div className="h-4 w-32 rounded bg-gray-200" /></td>
-      <td className="px-4 py-3"><div className="h-4 w-40 rounded bg-gray-200" /></td>
-      <td className="px-4 py-3"><div className="h-4 w-24 rounded bg-gray-200" /></td>
-      <td className="px-4 py-3"><div className="h-4 w-24 rounded bg-gray-200" /></td>
-      <td className="px-4 py-3"><div className="h-4 w-16 rounded bg-gray-200" /></td>
-    </tr>
-  );
-}
-
-function SkeletonTable() {
-  return (
-    <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
-      <table className="w-full text-left text-sm">
-        <thead>
-          <tr className="border-b border-gray-200 bg-gray-50">
-            <th className="px-4 py-3 font-medium text-gray-700">Employee ID</th>
-            <th className="px-4 py-3 font-medium text-gray-700">Full Name</th>
-            <th className="px-4 py-3 font-medium text-gray-700">Email</th>
-            <th className="px-4 py-3 font-medium text-gray-700">Department</th>
-            <th className="px-4 py-3 font-medium text-gray-700">Joined</th>
-            <th className="px-4 py-3 font-medium text-gray-700">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <SkeletonRow key={i} />
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 export default function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -72,7 +36,7 @@ export default function Employees() {
     }
 
     if (loading) {
-      return <SkeletonTable />;
+      return <Skeleton rows={5} columns={6} />;
     }
 
     if (employees.length === 0) {
@@ -92,7 +56,7 @@ export default function Employees() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-semibold text-gray-900">Employee Directory</h2>
         <button
           onClick={() => setModalOpen(true)}

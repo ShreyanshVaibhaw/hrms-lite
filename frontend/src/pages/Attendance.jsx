@@ -10,37 +10,7 @@ import EmptyState from '../components/ui/EmptyState';
 import MarkAttendanceForm from '../components/attendance/MarkAttendanceForm';
 import AttendanceTable from '../components/attendance/AttendanceTable';
 import AttendanceSummaryCards from '../components/attendance/AttendanceSummary';
-
-function SkeletonRow() {
-  return (
-    <tr className="border-b border-gray-100 animate-pulse">
-      <td className="px-4 py-3"><div className="h-4 w-44 rounded bg-gray-200" /></td>
-      <td className="px-4 py-3"><div className="h-4 w-16 rounded bg-gray-200" /></td>
-      <td className="px-4 py-3"><div className="h-4 w-36 rounded bg-gray-200" /></td>
-    </tr>
-  );
-}
-
-function SkeletonTable() {
-  return (
-    <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
-      <table className="w-full text-left text-sm">
-        <thead>
-          <tr className="border-b border-gray-200 bg-gray-50">
-            <th className="px-4 py-3 font-medium text-gray-700">Date</th>
-            <th className="px-4 py-3 font-medium text-gray-700">Status</th>
-            <th className="px-4 py-3 font-medium text-gray-700">Marked On</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <SkeletonRow key={i} />
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+import Skeleton from '../components/ui/Skeleton';
 
 export default function Attendance() {
   const [employees, setEmployees] = useState([]);
@@ -141,7 +111,7 @@ export default function Attendance() {
     }
 
     if (loading) {
-      return <SkeletonTable />;
+      return <Skeleton rows={5} columns={3} />;
     }
 
     if (records.length === 0) {
@@ -164,7 +134,7 @@ export default function Attendance() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-semibold text-gray-900">Attendance Records</h2>
         <button
           onClick={() => setModalOpen(true)}
@@ -177,10 +147,11 @@ export default function Attendance() {
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end">
         <div className="flex-1">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="att_select_employee" className="block text-sm font-medium text-gray-700 mb-1">
             Employee
           </label>
           <select
+            id="att_select_employee"
             value={selectedId}
             onChange={handleEmployeeChange}
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -199,10 +170,11 @@ export default function Attendance() {
         {selectedId && (
           <>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="att_date_from" className="block text-sm font-medium text-gray-700 mb-1">
                 From
               </label>
               <input
+                id="att_date_from"
                 type="date"
                 value={dateFrom}
                 onChange={(e) => setDateFrom(e.target.value)}
@@ -210,10 +182,11 @@ export default function Attendance() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="att_date_to" className="block text-sm font-medium text-gray-700 mb-1">
                 To
               </label>
               <input
+                id="att_date_to"
                 type="date"
                 value={dateTo}
                 onChange={(e) => setDateTo(e.target.value)}
@@ -233,6 +206,7 @@ export default function Attendance() {
                 <button
                   onClick={handleClearFilter}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  aria-label="Clear date filters"
                 >
                   <X className="h-4 w-4" />
                   Clear

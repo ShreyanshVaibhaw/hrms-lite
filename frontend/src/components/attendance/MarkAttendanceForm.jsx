@@ -89,16 +89,17 @@ export default function MarkAttendanceForm({ isOpen, onClose, onSuccess }) {
     <Modal isOpen={isOpen} onClose={handleClose} title="Mark Attendance" size="md">
       <form onSubmit={handleSubmit} className="space-y-4">
         {apiError && (
-          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
             {apiError}
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="att_employee_id" className="block text-sm font-medium text-gray-700 mb-1">
             Employee
           </label>
           <select
+            id="att_employee_id"
             name="employee_id"
             value={form.employee_id}
             onChange={handleChange}
@@ -122,10 +123,11 @@ export default function MarkAttendanceForm({ isOpen, onClose, onSuccess }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="att_date" className="block text-sm font-medium text-gray-700 mb-1">
             Date
           </label>
           <input
+            id="att_date"
             type="date"
             name="date"
             value={form.date}
@@ -140,10 +142,10 @@ export default function MarkAttendanceForm({ isOpen, onClose, onSuccess }) {
           )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <fieldset>
+          <legend className="block text-sm font-medium text-gray-700 mb-2">
             Status
-          </label>
+          </legend>
           <div className="flex gap-3">
             <button
               type="button"
@@ -153,6 +155,7 @@ export default function MarkAttendanceForm({ isOpen, onClose, onSuccess }) {
                   ? 'border-green-500 bg-green-50 text-green-700'
                   : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
               }`}
+              aria-pressed={form.status === 'Present'}
             >
               Present
             </button>
@@ -164,6 +167,7 @@ export default function MarkAttendanceForm({ isOpen, onClose, onSuccess }) {
                   ? 'border-red-500 bg-red-50 text-red-700'
                   : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
               }`}
+              aria-pressed={form.status === 'Absent'}
             >
               Absent
             </button>
@@ -171,7 +175,7 @@ export default function MarkAttendanceForm({ isOpen, onClose, onSuccess }) {
           {errors.status && (
             <p className="mt-1 text-xs text-red-600">{errors.status}</p>
           )}
-        </div>
+        </fieldset>
 
         <div className="flex justify-end gap-3 pt-2">
           <button

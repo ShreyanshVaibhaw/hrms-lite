@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 export default function ConfirmModal({
   isOpen,
   onClose,
@@ -7,6 +9,15 @@ export default function ConfirmModal({
   confirmLabel = 'Confirm',
   variant = 'default',
 }) {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const confirmClass =
@@ -16,14 +27,17 @@ export default function ConfirmModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirm-title"
     >
       <div
         className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        <h3 id="confirm-title" className="text-lg font-semibold text-gray-900">{title}</h3>
         <p className="mt-2 text-sm text-gray-600">{message}</p>
         <div className="mt-6 flex justify-end gap-3">
           <button

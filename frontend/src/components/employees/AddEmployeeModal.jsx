@@ -99,16 +99,17 @@ export default function AddEmployeeModal({ isOpen, onClose, onSuccess }) {
     <Modal isOpen={isOpen} onClose={handleClose} title="Add Employee" size="md">
       <form onSubmit={handleSubmit} className="space-y-4">
         {apiError && (
-          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
             {apiError}
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="employee_id" className="block text-sm font-medium text-gray-700 mb-1">
             Employee ID
           </label>
           <input
+            id="employee_id"
             type="text"
             name="employee_id"
             value={form.employee_id}
@@ -124,10 +125,11 @@ export default function AddEmployeeModal({ isOpen, onClose, onSuccess }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-1">
             Full Name
           </label>
           <input
+            id="full_name"
             type="text"
             name="full_name"
             value={form.full_name}
@@ -143,10 +145,11 @@ export default function AddEmployeeModal({ isOpen, onClose, onSuccess }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
             Email
           </label>
           <input
+            id="email"
             type="email"
             name="email"
             value={form.email}
@@ -162,10 +165,11 @@ export default function AddEmployeeModal({ isOpen, onClose, onSuccess }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-1">
             Department
           </label>
           <select
+            id="department"
             name="department"
             value={form.department}
             onChange={handleChange}
