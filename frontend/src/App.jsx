@@ -1,11 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import AppLayout from './components/layout/AppLayout';
+import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
-
-function Dashboard() {
-  return <div>Dashboard</div>;
-}
 
 function Employees() {
   return <div>Employees</div>;
