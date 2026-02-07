@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, field_validator
@@ -12,7 +12,9 @@ class AttendanceCreate(BaseModel):
     @field_validator("date")
     @classmethod
     def date_not_in_future(cls, v: date) -> date:
-        if v > date.today() + timedelta(days=1):
+        IST = timezone(timedelta(hours=5, minutes=30))
+        current_date = datetime.now(IST).date()
+        if v > current_date:
             raise ValueError("Attendance date cannot be in the future")
         return v
 

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime, timezone, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
@@ -21,7 +21,8 @@ class DashboardResponse(BaseModel):
 @router.get("/", response_model=DashboardResponse)
 def dashboard_stats(db: Session = Depends(get_db)):
     try:
-        today = date.today()
+        IST = timezone(timedelta(hours=5, minutes=30))
+        today = datetime.now(IST).date()
 
         total_employees = db.query(Employee).count()
         present_today = (
