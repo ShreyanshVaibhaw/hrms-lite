@@ -53,7 +53,7 @@ def get_one(employee_id: str, db: Session = Depends(get_db)):
 def delete(employee_id: str, db: Session = Depends(get_db)):
     try:
         delete_employee(db, employee_id)
-        return {"detail": f"Employee {employee_id} deleted successfully"}
+        return {"message": f"Employee {employee_id} deleted successfully"}
     except EmployeeNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
     except Exception as e:

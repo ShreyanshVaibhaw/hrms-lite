@@ -6,13 +6,19 @@ from app.exceptions import DuplicateEmployeeError, EmployeeNotFoundError
 
 
 def create_employee(db: Session, employee_data: EmployeeCreate) -> Employee:
-    if db.query(Employee).filter(Employee.employee_id == employee_data.employee_id).first():
-        raise DuplicateEmployeeError(field="employee_id", value=employee_data.employee_id)
+    cleaned = employee_data.model_dump()
+    cleaned["employee_id"] = cleaned["employee_id"].strip()
+    cleaned["full_name"] = cleaned["full_name"].strip()
+    cleaned["email"] = cleaned["email"].strip().lower()
+    cleaned["department"] = cleaned["department"].strip()
 
-    if db.query(Employee).filter(Employee.email == employee_data.email).first():
-        raise DuplicateEmployeeError(field="email", value=employee_data.email)
+    if db.query(Employee).filter(Employee.employee_id == cleaned["employee_id"]).first():
+        raise DuplicateEmployeeError(field="employee_id", value=cleaned["employee_id"])
 
-    employee = Employee(**employee_data.model_dump())
+    if db.query(Employee).filter(Employee.email == cleaned["email"]).first():
+        raise DuplicateEmployeeError(field="email", value=cleaned["email"])
+
+    employee = Employee(**cleaned)
     db.add(employee)
     db.commit()
     db.refresh(employee)

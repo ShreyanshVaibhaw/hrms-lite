@@ -1,13 +1,20 @@
 from datetime import date, datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class AttendanceCreate(BaseModel):
     employee_id: str
     date: date
     status: Literal["Present", "Absent"]
+
+    @field_validator("date")
+    @classmethod
+    def date_not_in_future(cls, v: date) -> date:
+        if v > date.today():
+            raise ValueError("Attendance date cannot be in the future")
+        return v
 
 
 class AttendanceResponse(BaseModel):
