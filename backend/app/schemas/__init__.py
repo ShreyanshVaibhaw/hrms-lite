@@ -4,6 +4,12 @@ from app.schemas.attendance import (
     AttendanceResponse,
     AttendanceListResponse,
     AttendanceSummary,
+    BulkAttendanceCreate,
+    BulkAttendanceResponse,
+    DateAttendanceRecord,
+    DateAttendanceResponse,
+    MonthSummaryDay,
+    MonthSummaryResponse,
 )
 
 __all__ = [
@@ -14,4 +20,10 @@ __all__ = [
     "AttendanceResponse",
     "AttendanceListResponse",
     "AttendanceSummary",
+    "BulkAttendanceCreate",
+    "BulkAttendanceResponse",
+    "DateAttendanceRecord",
+    "DateAttendanceResponse",
+    "MonthSummaryDay",
+    "MonthSummaryResponse",
 ]

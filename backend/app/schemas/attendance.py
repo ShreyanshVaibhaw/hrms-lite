@@ -38,3 +38,41 @@ class AttendanceSummary(BaseModel):
     total_days: int
     present_days: int
     absent_days: int
+
+
+class BulkAttendanceCreate(BaseModel):
+    records: list[AttendanceCreate]
+
+
+class BulkAttendanceResponse(BaseModel):
+    success: int
+    failed: int
+    results: list[AttendanceResponse]
+
+
+class DateAttendanceRecord(BaseModel):
+    employee_id: str
+    full_name: str
+    department: str
+    status: str | None
+    attendance_id: int | None
+
+
+class DateAttendanceResponse(BaseModel):
+    date: date
+    records: list[DateAttendanceRecord]
+    present: int
+    absent: int
+    unmarked: int
+
+
+class MonthSummaryDay(BaseModel):
+    date: date
+    present: int
+    absent: int
+
+
+class MonthSummaryResponse(BaseModel):
+    year: int
+    month: int
+    days: list[MonthSummaryDay]

@@ -6,8 +6,12 @@ from app.crud.employee import (
 )
 from app.crud.attendance import (
     mark_attendance,
+    upsert_attendance,
+    bulk_upsert_attendance,
     get_attendance_by_employee,
     get_attendance_summary,
+    get_attendance_by_date,
+    get_month_summary,
 )
 
 __all__ = [
@@ -16,6 +20,10 @@ __all__ = [
     "get_employee_by_id",
     "delete_employee",
     "mark_attendance",
+    "upsert_attendance",
+    "bulk_upsert_attendance",
     "get_attendance_by_employee",
     "get_attendance_summary",
+    "get_attendance_by_date",
+    "get_month_summary",
 ]

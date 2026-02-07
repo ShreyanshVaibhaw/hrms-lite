@@ -63,6 +63,26 @@ export const markAttendance = async (attendanceData) => {
   return data;
 };
 
+export const upsertAttendance = async (attendanceData) => {
+  const { data } = await api.put('/api/attendance', attendanceData);
+  return data;
+};
+
+export const bulkMarkAttendance = async (records) => {
+  const { data } = await api.post('/api/attendance/bulk', { records });
+  return data;
+};
+
+export const fetchDateAttendance = async (dateStr) => {
+  const { data } = await api.get(`/api/attendance/date/${dateStr}`);
+  return data;
+};
+
+export const fetchCalendarSummary = async (year, month) => {
+  const { data } = await api.get(`/api/attendance/calendar/${year}/${month}`);
+  return data;
+};
+
 export const fetchDashboard = async () => {
   const { data } = await api.get('/api/dashboard');
   return data;
