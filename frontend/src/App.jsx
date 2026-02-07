@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { Analytics } from '@vercel/analytics/react';
 import AppLayout from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Employees from './pages/Employees';
@@ -8,6 +9,7 @@ import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
+    <>
     <BrowserRouter>
       <Toaster
         position="top-right"
@@ -40,5 +42,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>
+    <Analytics />
+    </>
   );
 }
