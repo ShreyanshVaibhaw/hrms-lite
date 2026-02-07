@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { Analytics } from '@vercel/analytics/react';
 import AppLayout from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Employees from './pages/Employees';
@@ -39,6 +40,7 @@ export default function App() {
         </Route>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   );
 }
